@@ -18,6 +18,12 @@ RUN rustup target add wasm32-unknown-emscripten --toolchain nightly
 RUN apt-get autoclean && apt-get clean
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/local/emsdk_portable/zips /usr/local/emsdk_portable/clang/fastcomp/src
 
+RUN echo 'fn main() { println!("test"); }' > /tmp/test.rs
+RUN /bin/bash -l -c 'rustc --target asmjs-unknown-emscripten /tmp/test.rs -o /tmp/test.js'
+RUN rm /tmp/test.rs && rm /tmp/test.js
+
 VOLUME ["/source"]
 WORKDIR /source
-CMD ["bash"]
+
+ENTRYPOINT ["/bin/bash", "-l", "-c"]
+CMD ["cargo", "build", "--target", "asmjs-unknown-emscripten"]
