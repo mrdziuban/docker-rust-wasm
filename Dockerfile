@@ -3,7 +3,7 @@ MAINTAINER Jason Uhlenkott "jpu1077@uhlenkott.net"
 
 RUN apt-get update && apt-get install -y curl build-essential python2.7 python git curl cmake
 RUN cd /usr/local && curl -sL https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz | tar xz
-RUN bash -c ". /usr/local/emsdk_portable/emsdk_env.sh && emsdk update && emsdk install --shallow -j1 latest && emsdk activate latest"
+RUN bash -c ". /usr/local/emsdk_portable/emsdk_env.sh && emsdk update && emsdk install -j1 sdk-incoming-64bit && emsdk activate sdk-incoming-64bit"
 
 RUN curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly -y
 
@@ -26,4 +26,4 @@ VOLUME ["/source"]
 WORKDIR /source
 
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
-CMD ["cargo", "build", "--target", "asmjs-unknown-emscripten"]
+CMD ["cargo build --target=asmjs-unknown-emscripten"]
