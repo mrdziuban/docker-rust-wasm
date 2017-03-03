@@ -1,5 +1,5 @@
 FROM ubuntu:16.04
-MAINTAINER Jason Uhlenkott "jpu1077@uhlenkott.net"
+MAINTAINER Matt Dziuban "mrdziuban@gmail.com"
 
 RUN apt-get update && apt-get install -y curl build-essential python2.7 python git curl cmake
 RUN cd /usr/local && curl -sL https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz | tar xz
